@@ -55,7 +55,7 @@ public class Rule {
             bypassPermission = config.getString("bypassPermission");
         }
         else {
-            bypassPermission = "";
+            bypassPermission = "commandblocker.admin";
         }
 
         // Loop for applicable commands.
