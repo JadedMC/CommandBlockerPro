@@ -58,7 +58,10 @@ public class ChatUtils {
      * Called when the plugin is disabled to prevent potential memory leaks.
      */
     public static void disable() {
-        adventure = null;
+        if(adventure != null) {
+            adventure.close();
+            adventure = null;
+        }
     }
 
     /**
