@@ -25,8 +25,10 @@
 package net.jadedmc.commandblockerpro;
 
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandPreprocessListener;
+import net.jadedmc.commandblockerpro.listeners.PlayerCommandSendListener;
 import net.jadedmc.commandblockerpro.rules.RuleManager;
 import net.jadedmc.commandblockerpro.utils.ChatUtils;
+import net.jadedmc.commandblockerpro.utils.VersionUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -47,6 +49,11 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
+
+        // This event only exists on 1.13+.
+        if(VersionUtils.getServerVersion() >= 13) {
+            getServer().getPluginManager().registerEvents(new PlayerCommandSendListener(this), this);
+        }
 
         // Enables bStats statistics tracking.
         new Metrics(this, 20588);
