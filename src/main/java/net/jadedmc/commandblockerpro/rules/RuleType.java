@@ -25,7 +25,7 @@
 package net.jadedmc.commandblockerpro.rules;
 
 /**
- *  Different types of rules that can be used.
+ *  Represents the different types of rules that can be used.
  *  {@link #BLACKLIST}
  *  {@link #HIDE}
  *  {@link #WHITELIST}

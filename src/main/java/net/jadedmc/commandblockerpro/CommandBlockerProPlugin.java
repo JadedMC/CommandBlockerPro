@@ -24,6 +24,7 @@
  */
 package net.jadedmc.commandblockerpro;
 
+import net.jadedmc.commandblockerpro.listeners.PlayerCommandPreprocessListener;
 import net.jadedmc.commandblockerpro.rules.RuleManager;
 import net.jadedmc.commandblockerpro.utils.ChatUtils;
 import org.bstats.bukkit.Metrics;
@@ -43,6 +44,9 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         hookManager = new HookManager();
         settingsManager = new SettingsManager(this);
         ruleManager = new RuleManager(this);
+
+        // Register listeners
+        getServer().getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
 
         // Enables bStats statistics tracking.
         new Metrics(this, 20588);
