@@ -22,42 +22,29 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
-package net.jadedmc.commandblockerpro;
+package net.jadedmc.commandblockerpro.rules;
 
-import net.jadedmc.commandblockerpro.rules.RuleManager;
-import org.bstats.bukkit.Metrics;
-import org.bukkit.plugin.java.JavaPlugin;
-
-public final class CommandBlockerProPlugin extends JavaPlugin {
-    private SettingsManager settingsManager;
-    private RuleManager ruleManager;
+/**
+ *  Different types of rules that can be used.
+ *  {@link #BLACKLIST}
+ *  {@link #HIDE}
+ *  {@link #WHITELIST}
+ */
+public enum RuleType {
+    /**
+     * Blacklists all commands listed.
+     * Hides the commands from tab complete and blocks their use.
+     */
+    BLACKLIST,
 
     /**
-     * Runs when the plugin is enabled.
+     * Hides all commands listed from tab complete, without blocking their use.
      */
-    @Override
-    public void onEnable() {
-        // Load plugin settings.
-        settingsManager = new SettingsManager(this);
-        ruleManager = new RuleManager(this);
-
-        // Enables bStats statistics tracking.
-        new Metrics(this, 20588);
-    }
+    HIDE,
 
     /**
-     * Get the rule manager of the plugin.
-     * @return Rule Manager.
+     * Blocks all commands except those in the list.
+     * Hides non-whitelisted commands from tab complete and blocks their use.
      */
-    public RuleManager ruleManager() {
-        return ruleManager;
-    }
-
-    /**
-     * Get the plugin's settings manager, which manages config files.
-     * @return Settings Manager.
-     */
-    public SettingsManager settingsManager() {
-        return settingsManager;
-    }
+    WHITELIST
 }
