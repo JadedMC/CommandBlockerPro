@@ -50,7 +50,13 @@ public class Rule {
      */
     public Rule(final ConfigurationSection config) {
         type = RuleType.valueOf(config.getString("type"));
-        bypassPermission = config.getString("bypassPermission");
+
+        if(config.isSet("bypassPermission")) {
+            bypassPermission = config.getString("bypassPermission");
+        }
+        else {
+            bypassPermission = "";
+        }
 
         // Loop for applicable commands.
         if(config.isSet("commands")) {
@@ -90,6 +96,11 @@ public class Rule {
      * @return Whether they can use the command or not.
      */
     public boolean shouldBlock(Player player, String command) {
+        // Don't block if no permission was set.
+        if(bypassPermission.isEmpty()) {
+            return false;
+        }
+
         // Only block if the player does not have the bypass permission.
         if(player.hasPermission(bypassPermission)) {
            return false;
@@ -135,6 +146,11 @@ public class Rule {
      * @return Whether they can tab complete the command or not.
      */
     public boolean shouldHide(Player player, String command) {
+        // Don't hide if no permission was set.
+        if(bypassPermission.isEmpty()) {
+            return false;
+        }
+
         // Only hide if the player does not have the bypass permission.
         if(player.hasPermission(bypassPermission)) {
             return false;
