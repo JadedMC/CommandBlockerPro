@@ -24,43 +24,17 @@
  */
 package net.jadedmc.commandblockerpro;
 
-import net.jadedmc.commandblockerpro.rules.RuleManager;
-import org.bstats.bukkit.Metrics;
-import org.bukkit.plugin.java.JavaPlugin;
-
-public final class CommandBlockerProPlugin extends JavaPlugin {
-    private SettingsManager settingsManager;
-    private RuleManager ruleManager;
+/**
+ * A collection of static methods for other plugins to interact with.
+ */
+public class CommandBlockerPro {
+    private static CommandBlockerProPlugin plugin;
 
     /**
-     * Runs when the plugin is enabled.
+     * Passes an instance of the plugin to this static class.
+     * @param pl Instance of the plugin.
      */
-    @Override
-    public void onEnable() {
-        // Load plugin settings.
-        settingsManager = new SettingsManager(this);
-        ruleManager = new RuleManager(this);
-
-        // Enables bStats statistics tracking.
-        new Metrics(this, 20588);
-
-        // Sets up static API methods.
-        CommandBlockerPro.setPlugin(this);
-    }
-
-    /**
-     * Get the rule manager of the plugin.
-     * @return Rule Manager.
-     */
-    public RuleManager ruleManager() {
-        return ruleManager;
-    }
-
-    /**
-     * Get the plugin's settings manager, which manages config files.
-     * @return Settings Manager.
-     */
-    public SettingsManager settingsManager() {
-        return settingsManager;
+    protected static void setPlugin(final CommandBlockerProPlugin pl) {
+        plugin = pl;
     }
 }
