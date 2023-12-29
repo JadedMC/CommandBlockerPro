@@ -71,7 +71,12 @@ public class PlayerCommandPreprocessListener implements Listener {
 
                 // Otherwise, block the command.
                 event.setCancelled(true);
-                ChatUtils.chat(player, plugin.settingsManager().getConfig().getString("blockMessage"));
+                if(rule.hasBlockMessage()) {
+                    ChatUtils.chat(player, rule.blockMessage());
+                }
+                else {
+                    ChatUtils.chat(player, plugin.settingsManager().getConfig().getString("blockMessage"));
+                }
             }
         }
     }

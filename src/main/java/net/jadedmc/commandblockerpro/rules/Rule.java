@@ -47,6 +47,8 @@ public class Rule {
     private final List<String> commands = new ArrayList<>();
     private final List<String> contains = new ArrayList<>();
     private final List<String> regex = new ArrayList<>();
+    private final boolean hasBlockMessage;
+    private final String blockMessage;
 
     /**
      * Creates the rule using a configuration section.
@@ -80,6 +82,25 @@ public class Rule {
         if(config.isSet("regex")) {
             regex.addAll(config.getStringList("regex"));
         }
+
+        // Look for block message.
+        if(config.isSet("blockMessage")) {
+            hasBlockMessage = true;
+            blockMessage = config.getString("blockMessage");
+        }
+        else {
+            hasBlockMessage = false;
+            blockMessage = "";
+        }
+    }
+
+    /**
+     * Get the block message of the rule.
+     * Returns an empty String if one isn't set.
+     * @return Block Message of the rule.
+     */
+    public String blockMessage() {
+        return blockMessage;
     }
 
     /**
@@ -96,6 +117,14 @@ public class Rule {
      */
     public Collection<String> commands() {
         return commands;
+    }
+
+    /**
+     * Get if the rule has a block message set in its config.
+     * @return Whether the rule has a block message configured.
+     */
+    public boolean hasBlockMessage() {
+        return hasBlockMessage;
     }
 
     /**
