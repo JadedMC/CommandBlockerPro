@@ -24,29 +24,56 @@
  */
 package net.jadedmc.commandblockerpro;
 
-import org.bstats.bukkit.Metrics;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
-public final class CommandBlockerProPlugin extends JavaPlugin {
-    private SettingsManager settingsManager;
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * Manages the configurable settings in the plugin.
+ */
+public class SettingsManager {
+    private FileConfiguration config;
+    private final File configFile;
 
     /**
-     * Runs when the plugin is enabled.
+     * Loads or Creates configuration files.
+     * @param plugin Instance of the plugin.
      */
-    @Override
-    public void onEnable() {
-        // Load plugin settings.
-        settingsManager = new SettingsManager(this);
-
-        // Enables bStats statistics tracking.
-        new Metrics(this, 20588);
+    public SettingsManager(Plugin plugin) {
+        configFile = new File(plugin.getDataFolder(), "config.yml");
+        if(!configFile.exists()) {
+            plugin.saveResource("config.yml", false);
+        }
+        config = YamlConfiguration.loadConfiguration(configFile);
     }
 
     /**
-     * Get the plugin's settings manager, which manages config files.
-     * @return Settings Manager.
+     * Get the config.yml FileConfiguration.
+     * @return config.yml FileConfiguration.
      */
-    public SettingsManager settingsManager() {
-        return settingsManager;
+    public FileConfiguration getConfig() {
+        return config;
+    }
+
+    /**
+     * Update the configuration files.
+     */
+    public void reload() {
+        config = YamlConfiguration.loadConfiguration(configFile);
+    }
+
+    /**
+     * Saves the config file if it has been modified.
+     */
+    public void save() {
+        try {
+            config.save(configFile);
+        }
+        catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }

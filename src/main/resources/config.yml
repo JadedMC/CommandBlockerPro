@@ -1,0 +1,58 @@
+#  ________  ________  ________
+# |\   ____\|\   __  \|\   __  \
+# \ \  \___|\ \  \|\ /\ \  \|\  \
+#  \ \  \    \ \   __  \ \   ____\
+#   \ \  \____\ \  \|\  \ \  \___|
+#    \ \_______\ \_______\ \__\
+#     \|_______|\|_______|\|__|
+#
+# Version ${project.version}
+# by JadedMC
+
+# The message sent to a player when a command is blocked.
+# Can be overridden by adding this setting to each rule.
+# Supports legacy color codes, but you should be using MiniMessage instead (https://docs.advntr.dev/minimessage/format.html).
+blockMessage: "<red><bold>Error</bold> <dark_gray>» <red>You do not have access to that command."
+
+# Defines different rules that can be enforced when determining when to block or hide commands.
+# You can add as many as you want.
+# You can also name them anything you want, I just used numbers for simplicity.
+rules:
+  1:
+    # Changes now the rule should operate.
+    # Options:
+    #  - BLACKLIST (Blocks provided commands)
+    #  - WHITELIST (Only allows the provided commands)
+    #  - HIDE (Hides the provided commands from tab complete, but does not block them)
+    type: BLACKLIST
+
+    # The permission node required to bypass the rule.
+    # You can change this to whatever you want, and can be different for each rule.
+    bypassPermission: "cb.bypass"
+
+    # The list of commands the rule should apply to.
+    # Each one should begin with a '/'
+    commands:
+      - /?
+      - /about
+      - /bukkit:?
+      - /bukkit:about
+      - /bukkit:help
+      - /bukkit:pl
+      - /bukkit:plugins
+      - /bukkit:ver
+      - /bukkit:version
+      - /help
+      - /icanhasbukkit
+      - /paper
+      - /paper:paper
+      - /pl
+      - /plugins
+      - /pufferfish
+      - /pufferfish:pufferfish
+      - /purpur
+      - /purpur:purpur
+      - /spigot
+      - /spigot:spigot
+      - /ver
+      - /version
