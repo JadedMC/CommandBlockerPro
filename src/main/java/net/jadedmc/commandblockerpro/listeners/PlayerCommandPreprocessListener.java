@@ -25,6 +25,7 @@
 package net.jadedmc.commandblockerpro.listeners;
 
 import net.jadedmc.commandblockerpro.CommandBlockerProPlugin;
+import net.jadedmc.commandblockerpro.events.CommandBlockEvent;
 import net.jadedmc.commandblockerpro.rules.Rule;
 import net.jadedmc.commandblockerpro.utils.ChatUtils;
 import org.bukkit.entity.Player;
@@ -59,6 +60,16 @@ public class PlayerCommandPreprocessListener implements Listener {
         // Loop through each rule configured, blocking the command if the rule catches it.
         for(Rule rule : plugin.ruleManager().rules()) {
             if(rule.shouldBlock(player, command)) {
+                // Calls the CommandBlockEvent.
+                CommandBlockEvent commandBlockEvent = new CommandBlockEvent(player, command, rule);
+                plugin.getServer().getPluginManager().callEvent(commandBlockEvent);
+
+                // If the CommandBlockEvent is cancelled, allow the command to be processed.
+                if(!commandBlockEvent.isCancelled()) {
+                    return;
+                }
+
+                // Otherwise, block the command.
                 event.setCancelled(true);
                 ChatUtils.chat(player, plugin.settingsManager().getConfig().getString("blockMessage"));
             }
