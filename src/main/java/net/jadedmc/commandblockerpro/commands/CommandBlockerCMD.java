@@ -88,11 +88,16 @@ public class CommandBlockerCMD implements CommandExecutor, TabCompleter {
                 ChatUtils.chat(sender, "<green><bold>CommandBlockerPro</bold> <dark_gray>» <green>Current version: <white>" + plugin.getDescription().getVersion());
                 return true;
 
+            case "wiki":
+                ChatUtils.chat(sender, "<green><bold>CommandBlockerPro</bold> <dark_gray>» <green>View the wiki at <white><click:open_url:'https://github.com/JadedMC/CommandBlockerPro/wiki'>https://github.com/JadedMC/CommandBlockerPro/wiki</click><green>.");
+                return true;
+
             // Displays the help menu.
             default:
                 ChatUtils.chat(sender, "<green><bold>CommandBlockerPro Commands");
                 ChatUtils.chat(sender, "<green><click:suggest_command:\"/cb reload\">/cb reload</click> <dark_gray>» <white>Reloads all configuration files.");
                 ChatUtils.chat(sender, "<green><click:suggest_command:\"/cb version\">/cb version</click> <dark_gray>» <white>Displays the plugin version.");
+                ChatUtils.chat(sender, "<green><click:suggest_command:\"/cb wiki\">/cb wiki</click> <dark_gray>» <white>Displays a link to the plugin's wiki.");
                 return true;
         }
     }
@@ -115,7 +120,7 @@ public class CommandBlockerCMD implements CommandExecutor, TabCompleter {
 
         // Lists all sub commands if the player hasn't picked one yet.
         if(args.length < 2) {
-            return Arrays.asList("help", "reload", "version");
+            return Arrays.asList("help", "reload", "version", "wiki");
         }
 
         // Otherwise, send an empty list.
