@@ -24,11 +24,23 @@
  */
 package net.jadedmc.commandblockerpro;
 
+import net.jadedmc.commandblockerpro.rules.Rule;
+
+import java.util.Collection;
+
 /**
  * A collection of static methods for other plugins to interact with.
  */
 public class CommandBlockerPro {
     private static CommandBlockerProPlugin plugin;
+
+    /**
+     *  Get all currently loaded rules.
+     * @return Collection of all loaded rules.
+     */
+    public static Collection<Rule> getRules() {
+        return plugin.ruleManager().rules();
+    }
 
     /**
      * Passes an instance of the plugin to this static class.
