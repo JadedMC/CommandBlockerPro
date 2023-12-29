@@ -1,0 +1,4 @@
+name: CommandBlockerPro
+version: '${project.version}'
+main: net.jadedmc.commandblockerpro.CommandBlockerProPlugin
+api-version: 1.13
