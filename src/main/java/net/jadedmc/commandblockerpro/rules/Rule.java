@@ -30,6 +30,8 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a pattern to follow when determining what commands should be blocked or hidden from a player.
@@ -44,6 +46,7 @@ public class Rule {
     private final String bypassPermission;
     private final List<String> commands = new ArrayList<>();
     private final List<String> contains = new ArrayList<>();
+    private final List<String> regex = new ArrayList<>();
 
     /**
      * Creates the rule using a configuration section.
@@ -71,6 +74,11 @@ public class Rule {
             for(String containedString : config.getStringList("contains")) {
                 contains.add(containedString.toLowerCase());
             }
+        }
+
+        // Loop for regex filters.
+        if(config.isSet("regex")) {
+            regex.addAll(config.getStringList("regex"));
         }
     }
 
@@ -123,6 +131,18 @@ public class Rule {
                     }
                 }
 
+                // Loops through each regex statement in the configured list.
+                for(String filter : regex) {
+                    Pattern pattern = Pattern.compile(filter);
+                    Matcher matcher = pattern.matcher(command);
+
+                    // Checks if there is a match.
+                    if(matcher.find()) {
+                        // If so, the command fails.
+                        return true;
+                    }
+                }
+
                 return commands.contains(command.toLowerCase());
 
             case WHITELIST:
@@ -130,6 +150,18 @@ public class Rule {
                 for(String containsString : contains) {
                     if(!command.toLowerCase().contains(containsString)) {
                         return true;
+                    }
+                }
+
+                // Loops through each regex statement in the configured list.
+                for(String filter : regex) {
+                    Pattern pattern = Pattern.compile(filter);
+                    Matcher matcher = pattern.matcher(command);
+
+                    // Checks if there is a match.
+                    if(matcher.find()) {
+                        // If so, the command fails.
+                        return false;
                     }
                 }
 
@@ -168,6 +200,18 @@ public class Rule {
                     }
                 }
 
+                // Loops through each regex statement in the configured list.
+                for(String filter : regex) {
+                    Pattern pattern = Pattern.compile(filter);
+                    Matcher matcher = pattern.matcher(command);
+
+                    // Checks if there is a match.
+                    if(matcher.find()) {
+                        // If so, the command fails.
+                        return true;
+                    }
+                }
+
                 return commands.contains(command.toLowerCase());
 
             case WHITELIST:
@@ -175,6 +219,18 @@ public class Rule {
                 for(String containsString : contains) {
                     if(!command.toLowerCase().contains(containsString)) {
                         return true;
+                    }
+                }
+
+                // Loops through each regex statement in the configured list.
+                for(String filter : regex) {
+                    Pattern pattern = Pattern.compile(filter);
+                    Matcher matcher = pattern.matcher(command);
+
+                    // Checks if there is a match.
+                    if(matcher.find()) {
+                        // If so, the command fails.
+                        return false;
                     }
                 }
 
