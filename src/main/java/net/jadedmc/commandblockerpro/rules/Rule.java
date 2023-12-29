@@ -38,6 +38,7 @@ import java.util.List;
  *   - A bypass permission node (which allows players to ignore the rule if they have)
  *   - A list of commands the rule should act on.
  */
+@SuppressWarnings("unused")
 public class Rule {
     private final RuleType type;
     private final String bypassPermission;

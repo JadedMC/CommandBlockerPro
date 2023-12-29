@@ -31,6 +31,7 @@ import java.util.Collection;
 /**
  * A collection of static methods for other plugins to interact with.
  */
+@SuppressWarnings("unused")
 public class CommandBlockerPro {
     private static CommandBlockerProPlugin plugin;
 
