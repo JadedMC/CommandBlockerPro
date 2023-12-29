@@ -65,7 +65,7 @@ public class PlayerCommandPreprocessListener implements Listener {
                 plugin.getServer().getPluginManager().callEvent(commandBlockEvent);
 
                 // If the CommandBlockEvent is cancelled, allow the command to be processed.
-                if(!commandBlockEvent.isCancelled()) {
+                if(commandBlockEvent.isCancelled()) {
                     return;
                 }
 
