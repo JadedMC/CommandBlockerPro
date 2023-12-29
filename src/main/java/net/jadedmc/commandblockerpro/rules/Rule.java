@@ -42,6 +42,7 @@ public class Rule {
     private final RuleType type;
     private final String bypassPermission;
     private final List<String> commands = new ArrayList<>();
+    private final List<String> contains = new ArrayList<>();
 
     /**
      * Creates the rule using a configuration section.
@@ -51,8 +52,18 @@ public class Rule {
         type = RuleType.valueOf(config.getString("type"));
         bypassPermission = config.getString("bypassPermission");
 
-        for(String command : config.getStringList("commands")) {
-            commands.add(command.toLowerCase());
+        // Loop for applicable commands.
+        if(config.isSet("commands")) {
+            for(String command : config.getStringList("commands")) {
+                commands.add(command.toLowerCase());
+            }
+        }
+
+        // Loop for applicable contains strings.
+        if(config.isSet("contains")) {
+            for(String containedString : config.getStringList("contains")) {
+                contains.add(containedString.toLowerCase());
+            }
         }
     }
 
@@ -92,9 +103,24 @@ public class Rule {
         // Check the type of the rule to determine if the command should be blocked.
         switch (type) {
             case BLACKLIST:
+
+                // Check for contained strings.
+                for(String containsString : contains) {
+                    if(command.toLowerCase().contains(containsString)) {
+                        return true;
+                    }
+                }
+
                 return commands.contains(command.toLowerCase());
 
             case WHITELIST:
+                // Check for contained strings.
+                for(String containsString : contains) {
+                    if(!command.toLowerCase().contains(containsString)) {
+                        return true;
+                    }
+                }
+
                 return !commands.contains(command.toLowerCase());
         }
 
@@ -118,9 +144,23 @@ public class Rule {
         switch(type) {
             case BLACKLIST:
             case HIDE:
+                // Check for contained strings.
+                for(String containsString : contains) {
+                    if(command.toLowerCase().contains(containsString)) {
+                        return true;
+                    }
+                }
+
                 return commands.contains(command.toLowerCase());
 
             case WHITELIST:
+                // Check for contained strings.
+                for(String containsString : contains) {
+                    if(!command.toLowerCase().contains(containsString)) {
+                        return true;
+                    }
+                }
+
                 return !commands.contains(command.toLowerCase());
         }
 

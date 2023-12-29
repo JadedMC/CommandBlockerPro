@@ -28,7 +28,7 @@ rules:
 
     # The permission node required to bypass the rule.
     # You can change this to whatever you want, and can be different for each rule.
-    bypassPermission: "cb.bypass"
+    bypassPermission: "cb.admin"
 
     # The list of commands the rule should apply to.
     # Each one should begin with a '/'
@@ -56,3 +56,14 @@ rules:
       - /spigot:spigot
       - /ver
       - /version
+
+  # Example of blocking commands containing a given string.
+  2:
+    type: HIDE
+    bypassPermission: "cb.admin"
+
+    # This time we are looking for all commands that have a colon (':') in them.
+    # You can use both "contains" and "commands" in the same rule.
+    # You can add as many to check as you want.
+    contains:
+      - ":"
