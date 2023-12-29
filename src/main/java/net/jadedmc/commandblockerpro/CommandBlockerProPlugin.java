@@ -25,6 +25,7 @@
 package net.jadedmc.commandblockerpro;
 
 import net.jadedmc.commandblockerpro.rules.RuleManager;
+import net.jadedmc.commandblockerpro.utils.ChatUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,8 +45,20 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         // Enables bStats statistics tracking.
         new Metrics(this, 20588);
 
+        // Enables ChatUtils.
+        ChatUtils.enable(this);
+
         // Sets up static API methods.
         CommandBlockerPro.setPlugin(this);
+    }
+
+    /**
+     * Runs when the plugin is disabled.
+     */
+    @Override
+    public void onDisable() {
+        // Disables ChatUtils. Required to prevent memory leaks with the Adventure Library.
+        ChatUtils.disable();
     }
 
     /**
