@@ -24,6 +24,7 @@
  */
 package net.jadedmc.commandblockerpro;
 
+import net.jadedmc.commandblockerpro.commands.CommandBlockerCMD;
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandPreprocessListener;
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandSendListener;
 import net.jadedmc.commandblockerpro.rules.RuleManager;
@@ -54,6 +55,9 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         if(VersionUtils.getServerVersion() >= 13) {
             getServer().getPluginManager().registerEvents(new PlayerCommandSendListener(this), this);
         }
+
+        // Register command
+        getCommand("commandblocker").setExecutor(new CommandBlockerCMD(this));
 
         // Enables bStats statistics tracking.
         new Metrics(this, 20588);
