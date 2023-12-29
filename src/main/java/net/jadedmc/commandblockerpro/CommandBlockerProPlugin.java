@@ -30,6 +30,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CommandBlockerProPlugin extends JavaPlugin {
+    private HookManager hookManager;
     private SettingsManager settingsManager;
     private RuleManager ruleManager;
 
@@ -39,6 +40,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // Load plugin settings.
+        hookManager = new HookManager();
         settingsManager = new SettingsManager(this);
         ruleManager = new RuleManager(this);
 
@@ -59,6 +61,14 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
     public void onDisable() {
         // Disables ChatUtils. Required to prevent memory leaks with the Adventure Library.
         ChatUtils.disable();
+    }
+
+    /**
+     * Get the Hook Manager, which returns an object that keeps track of hooks into other plugins.
+     * @return HookManager.
+     */
+    public HookManager hookManager() {
+        return hookManager;
     }
 
     /**

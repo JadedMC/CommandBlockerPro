@@ -24,12 +24,14 @@
  */
 package net.jadedmc.commandblockerpro.utils;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.jadedmc.commandblockerpro.CommandBlockerProPlugin;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,14 +41,16 @@ import java.util.regex.Pattern;
  */
 public class ChatUtils {
     private static BukkitAudiences adventure;
+    private static CommandBlockerProPlugin plugin;
 
     /**
      * Creates an instance of adventure using an instance of the plugin.
      * Called when the plugin is enabled.
-     * @param plugin Instance of the plugin.
+     * @param pl Instance of the plugin.
      */
-    public static void enable(final CommandBlockerProPlugin plugin) {
-        adventure = BukkitAudiences.create(plugin);
+    public static void enable(final CommandBlockerProPlugin pl) {
+        plugin = pl;
+        adventure = BukkitAudiences.create(pl);
     }
 
     /**
@@ -64,6 +68,22 @@ public class ChatUtils {
      */
     public static void chat(CommandSender sender, String message) {
         adventure.sender(sender).sendMessage(translate(message));
+    }
+
+    /**
+     * A quick way to send a Player a colored message.
+     * Supports PlaceholderAPI placeholders if installed.
+     * @param player Player to send message to.
+     * @param message The message being sent.
+     */
+    public static void chat(Player player, String message) {
+        // Translates placeholders if needed.
+        if(plugin.hookManager().usePlaceholderAPI()) {
+            message = PlaceholderAPI.setPlaceholders(player, message);
+        }
+
+        // Sends the message to the player.
+        adventure.sender(player).sendMessage(translate(message));
     }
 
     /**
