@@ -105,8 +105,7 @@ public class ChatUtils {
      */
     public static String replaceLegacy(String message) {
         // Get the server version.
-        String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-        int subVersion = Integer.parseInt(version.replace("1_", "").replaceAll("_R\\d", "").replace("v", ""));
+        int subVersion = VersionUtils.getServerVersion();
 
         // If the version is 1.16 or greater, check for hex color codes.
         if(subVersion >= 16) {
