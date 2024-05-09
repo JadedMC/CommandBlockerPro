@@ -40,7 +40,7 @@ public class CommandBlockerPro {
      * @return Collection of all loaded rules.
      */
     public static Collection<Rule> getRules() {
-        return plugin.ruleManager().rules();
+        return plugin.ruleManager().getRules();
     }
 
     /**

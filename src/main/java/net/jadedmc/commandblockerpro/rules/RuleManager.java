@@ -73,7 +73,7 @@ public class RuleManager {
      * Gets all currently loaded rules.
      * @return All loaded rules, stored in a collection.
      */
-    public Collection<Rule> rules() {
+    public Collection<Rule> getRules() {
         return rules;
     }
 }
