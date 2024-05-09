@@ -77,6 +77,11 @@ public class PlayerCommandPreprocessListener implements Listener {
                 else {
                     ChatUtils.chat(player, plugin.settingsManager().getConfig().getString("blockMessage"));
                 }
+
+                // Look for block sound.
+                if(rule.hasBlockSound()) {
+                    player.playSound(player.getLocation(), rule.blockSound(), rule.blockSoundVolume(), rule.blockSoundPitch());
+                }
             }
         }
     }

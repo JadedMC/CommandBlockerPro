@@ -24,10 +24,12 @@
  */
 package net.jadedmc.commandblockerpro.rules;
 
+import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -49,6 +51,10 @@ public class Rule {
     private final List<String> regex = new ArrayList<>();
     private final boolean hasBlockMessage;
     private final String blockMessage;
+    private final Sound blockSound;
+    private final float blockSoundVolume;
+    private final float blockSoundPitch;
+    private final boolean hasBlockSound;
 
     /**
      * Creates the rule using a configuration section.
@@ -92,6 +98,33 @@ public class Rule {
             hasBlockMessage = false;
             blockMessage = "";
         }
+
+        // Look for block sounds.
+        if(config.isSet("blockSound.sound")) {
+            hasBlockSound = true;
+            blockSound = Sound.valueOf(config.getString("blockSound.sound"));
+
+            if(config.isSet("blockSound.pitch")) {
+                blockSoundPitch = (float) config.getDouble("blockSound.pitch");
+            }
+            else {
+                blockSoundPitch = 1.0f;
+            }
+
+            // Check for Sound volume.
+            if(config.isSet("blockSound.volume")) {
+                blockSoundVolume = (float) config.getDouble("blockSound.volume");
+            }
+            else {
+                blockSoundVolume = 1.0f;
+            }
+        }
+        else {
+            hasBlockSound = false;
+            blockSound = Sound.values()[0];
+            blockSoundVolume = 0;
+            blockSoundPitch = 0;
+        }
     }
 
     /**
@@ -101,6 +134,33 @@ public class Rule {
      */
     public String blockMessage() {
         return blockMessage;
+    }
+
+    /**
+     * Get the block sound of the rule.
+     * Returns whatever the first sound is in the Sound enum if one isn't set.
+     * @return Block Sound of the rule.
+     */
+    public Sound blockSound() {
+        return blockSound;
+    }
+
+    /**
+     * Gets the Pitch of the Block Sound.
+     * Returns 1.0 if not set.
+     * @return Block Sound Pitch.
+     */
+    public float blockSoundPitch() {
+        return blockSoundPitch;
+    }
+
+    /**
+     * Returns the Volume of the Block Sound.
+     * Returns 1.0 if not set.
+     * @return Block Sound Volume.
+     */
+    public float blockSoundVolume() {
+        return blockSoundVolume;
     }
 
     /**
@@ -125,6 +185,14 @@ public class Rule {
      */
     public boolean hasBlockMessage() {
         return hasBlockMessage;
+    }
+
+    /**
+     * Get if the rule has a block sound set in its config.
+     * @return Whether the rule has a block sound configured.
+     */
+    public boolean hasBlockSound() {
+        return hasBlockSound;
     }
 
     /**
