@@ -28,6 +28,7 @@ import net.jadedmc.commandblockerpro.CommandBlockerProPlugin;
 import net.jadedmc.commandblockerpro.events.CommandBlockEvent;
 import net.jadedmc.commandblockerpro.rules.Rule;
 import net.jadedmc.commandblockerpro.utils.ChatUtils;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -54,14 +55,14 @@ public class PlayerCommandPreprocessListener implements Listener {
      */
     @EventHandler
     public void onCommandSend(PlayerCommandPreprocessEvent event) {
-        Player player = event.getPlayer();
-        String command = event.getMessage().split(" ")[0];
+        final Player player = event.getPlayer();
+        final String command = event.getMessage().split(" ")[0];
 
         // Loop through each rule configured, blocking the command if the rule catches it.
-        for(Rule rule : plugin.ruleManager().rules()) {
+        for(final Rule rule : plugin.ruleManager().getRules()) {
             if(rule.shouldBlock(player, command)) {
                 // Calls the CommandBlockEvent.
-                CommandBlockEvent commandBlockEvent = new CommandBlockEvent(player, command, rule);
+                final CommandBlockEvent commandBlockEvent = new CommandBlockEvent(player, command, rule);
                 plugin.getServer().getPluginManager().callEvent(commandBlockEvent);
 
                 // If the CommandBlockEvent is cancelled, allow the command to be processed.
@@ -81,6 +82,24 @@ public class PlayerCommandPreprocessListener implements Listener {
                 // Look for block sound.
                 if(rule.hasBlockSound()) {
                     player.playSound(player.getLocation(), rule.getBlockSound(), rule.getBlockSoundVolume(), rule.getBlockSoundPitch());
+                }
+                else if(plugin.settingsManager().getConfig().isSet("blockSound.sound")) {
+                    final Sound blockSound = Sound.valueOf(plugin.settingsManager().getConfig().getString("blockSound.sound"));
+                    float blockSoundPitch = 1.0f;
+                    float blockSoundVolume = 1.0f;
+
+                    // Check for sound pitch.
+                    if (plugin.settingsManager().getConfig().isSet("blockSound.pitch")) {
+                        blockSoundPitch = (float) plugin.settingsManager().getConfig().getDouble("blockSound.pitch");
+                    }
+
+                    // Check for Sound volume.
+                    if (plugin.settingsManager().getConfig().isSet("blockSound.volume")) {
+                        blockSoundVolume = (float) plugin.settingsManager().getConfig().getDouble("blockSound.volume");
+                    }
+
+                    // Play the sound.
+                    player.playSound(player.getLocation(), blockSound, blockSoundVolume, blockSoundPitch);
                 }
             }
         }
