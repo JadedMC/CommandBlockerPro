@@ -55,14 +55,14 @@ public class PlayerCommandSendListener implements Listener {
      */
     @EventHandler
     public void onCommandSend(PlayerCommandSendEvent event) {
-        Player player = event.getPlayer();
-        List<String> tablist = new ArrayList<>(event.getCommands());
+        final Player player = event.getPlayer();
+        final List<String> tablist = new ArrayList<>(event.getCommands());
 
         // Loops through all the rules.
-        for(Rule rule : plugin.ruleManager().rules()) {
+        for(final Rule rule : plugin.ruleManager().getRules()) {
 
             // Removes commands that are hidden by that rule.
-            for(String command : tablist) {
+            for(final String command : tablist) {
                 if(rule.shouldHide(player, "/" + command)) {
                     event.getCommands().remove(command);
                 }
