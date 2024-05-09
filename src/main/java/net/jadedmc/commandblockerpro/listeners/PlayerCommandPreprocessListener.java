@@ -72,7 +72,7 @@ public class PlayerCommandPreprocessListener implements Listener {
                 // Otherwise, block the command.
                 event.setCancelled(true);
                 if(rule.hasBlockMessage()) {
-                    ChatUtils.chat(player, rule.blockMessage());
+                    ChatUtils.chat(player, rule.getBlockMessage());
                 }
                 else {
                     ChatUtils.chat(player, plugin.settingsManager().getConfig().getString("blockMessage"));
@@ -80,7 +80,7 @@ public class PlayerCommandPreprocessListener implements Listener {
 
                 // Look for block sound.
                 if(rule.hasBlockSound()) {
-                    player.playSound(player.getLocation(), rule.blockSound(), rule.blockSoundVolume(), rule.blockSoundPitch());
+                    player.playSound(player.getLocation(), rule.getBlockSound(), rule.getBlockSoundVolume(), rule.getBlockSoundPitch());
                 }
             }
         }

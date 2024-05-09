@@ -29,7 +29,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -132,7 +131,7 @@ public class Rule {
      * Returns an empty String if one isn't set.
      * @return Block Message of the rule.
      */
-    public String blockMessage() {
+    public String getBlockMessage() {
         return blockMessage;
     }
 
@@ -141,7 +140,7 @@ public class Rule {
      * Returns whatever the first sound is in the Sound enum if one isn't set.
      * @return Block Sound of the rule.
      */
-    public Sound blockSound() {
+    public Sound getBlockSound() {
         return blockSound;
     }
 
@@ -150,7 +149,7 @@ public class Rule {
      * Returns 1.0 if not set.
      * @return Block Sound Pitch.
      */
-    public float blockSoundPitch() {
+    public float getBlockSoundPitch() {
         return blockSoundPitch;
     }
 
@@ -159,7 +158,7 @@ public class Rule {
      * Returns 1.0 if not set.
      * @return Block Sound Volume.
      */
-    public float blockSoundVolume() {
+    public float getBlockSoundVolume() {
         return blockSoundVolume;
     }
 
@@ -167,7 +166,7 @@ public class Rule {
      * Get the permission node required to bypass the rule.
      * @return Rule's bypass permission node.
      */
-    public String bypassPermission() {
+    public String getBypassPermission() {
         return bypassPermission;
     }
 
@@ -175,8 +174,16 @@ public class Rule {
      * Get all commands stored by the rule.
      * @return The rule's stored commands.
      */
-    public Collection<String> commands() {
+    public Collection<String> getCommands() {
         return commands;
+    }
+
+    /**
+     * Retrieves the type of the rule.
+     * @return Rule Type.
+     */
+    public RuleType getType() {
+        return type;
     }
 
     /**
@@ -339,10 +346,43 @@ public class Rule {
     }
 
     /**
+     * <b>Deprecated. Use getBlockMessage() instead.</b>
+     * Get the block message of the rule.
+     * Returns an empty String if one isn't set.
+     * @return Block Message of the rule.
+     */
+    @Deprecated
+    public String blockMessage() {
+        return getBlockMessage();
+    }
+
+    /**
+     * <b>Deprecated. Use getBypassPermission() instead.</b>
+     * Get the permission node required to bypass the rule.
+     * @return Rule's bypass permission node.
+     */
+    @Deprecated
+    public String bypassPermission() {
+        return getBypassPermission();
+    }
+
+    /**
+     * <b>Deprecated. Use getCommands() instead.</b>
+     * Get all commands stored by the rule.
+     * @return The rule's stored commands.
+     */
+    @Deprecated
+    public Collection<String> commands() {
+        return getCommands();
+    }
+
+    /**
+     * <b>Deprecated. Use getType() instead.</b>
      * Retrieves the type of the rule.
      * @return Rule Type.
      */
+    @Deprecated
     public RuleType type() {
-        return type;
+        return getType();
     }
 }
