@@ -350,45 +350,4 @@ public class Rule {
         // If something goes wrong, don't hide the command.
         return false;
     }
-
-    /**
-     * <b>Deprecated. Use getBlockMessage() instead.</b>
-     * Get the block message of the rule.
-     * Returns an empty String if one isn't set.
-     * @return Block Message of the rule.
-     */
-    @Deprecated
-    public String blockMessage() {
-        return getBlockMessage();
-    }
-
-    /**
-     * <b>Deprecated. Use getBypassPermission() instead.</b>
-     * Get the permission node required to bypass the rule.
-     * @return Rule's bypass permission node.
-     */
-    @Deprecated
-    public String bypassPermission() {
-        return getBypassPermission();
-    }
-
-    /**
-     * <b>Deprecated. Use getCommands() instead.</b>
-     * Get all commands stored by the rule.
-     * @return The rule's stored commands.
-     */
-    @Deprecated
-    public Collection<String> commands() {
-        return getCommands();
-    }
-
-    /**
-     * <b>Deprecated. Use getType() instead.</b>
-     * Retrieves the type of the rule.
-     * @return Rule Type.
-     */
-    @Deprecated
-    public RuleType type() {
-        return getType();
-    }
 }
