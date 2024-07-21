@@ -126,8 +126,8 @@ public class Rule {
             blockSoundPitch = 0;
         }
 
-        // Register the dummy commands if the Rule Type is SHOW.
-        if(this.type == RuleType.SHOW) {
+        // Register the dummy commands if the Rule Type is MESSAGE.
+        if(this.type == RuleType.MESSAGE) {
             CommandUtils.registerDummyCommands(this);
         }
     }

@@ -46,7 +46,7 @@ public enum RuleType {
      * Creates fake commands that do nothing but display the rule's block message.
      * Does not override a command if it already exists.
      */
-    SHOW,
+    MESSAGE,
 
     /**
      * Blocks all commands except those in the list.

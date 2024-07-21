@@ -37,7 +37,7 @@ import java.lang.reflect.Method;
 
 /**
  * A collection of methods useful for Dynamically registering commands.
- * This is specifically used for the "SHOW" Rule Type.
+ * This is specifically used for the "MESSAGE" Rule Type.
  */
 public class CommandUtils {
     private static CommandBlockerProPlugin plugin = null;
@@ -65,7 +65,7 @@ public class CommandUtils {
     /**
      * Registers dummy commands for a given Rule.
      * Dummy commands are commands that are registered dynamically, and only display the rule's blocked message.
-     * Used for the "SHOW" Rule Type.
+     * Used for the "MESSAGE" Rule Type.
      * @param rule Rule to register dummy commands for.
      */
     public static void registerDummyCommands(@NotNull final Rule rule) {

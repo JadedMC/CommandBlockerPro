@@ -30,7 +30,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a fake command being registered for the "SHOW" Rule Type.
+ * Represents a fake command being registered for the "MESSAGE" Rule Type.
  * Only function is to display the Rule's block message.
  */
 public class DummyCommand extends BukkitCommand {
