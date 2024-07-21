@@ -25,6 +25,8 @@
 package net.jadedmc.commandblockerpro;
 
 import net.jadedmc.commandblockerpro.rules.Rule;
+import org.bukkit.Sound;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
@@ -34,6 +36,72 @@ import java.util.Collection;
 @SuppressWarnings("unused")
 public class CommandBlockerPro {
     private static CommandBlockerProPlugin plugin;
+
+    /**
+     * Get if a global block message has been configured.
+     * @return true is yes, false if not.
+     */
+    public boolean hasGlobalBlockMessage() {
+        return plugin.settingsManager().getConfig().isSet("blockMessage");
+    }
+
+    /**
+     * Get if a global block sound has been configured.
+     * @return true if yes, false it not.
+     */
+    public boolean hasGlobalBlockSound() {
+        return plugin.settingsManager().getConfig().isSet("blockMessage.sound");
+    }
+
+    /**
+     * Get the currently configured global block message.
+     * @return The configured block message as a String, or null if not set.
+     */
+    @Nullable
+    public static String getGlobalBlockMessage() {
+        if(plugin.settingsManager().getConfig().isSet("blockMessage")) {
+            return plugin.settingsManager().getConfig().getString("blockMessage");
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the currently configured global block sound.
+     * @return Sound configured, or null if not set.
+     */
+    @Nullable
+    public static Sound getGlobalBlockSound() {
+        if(plugin.settingsManager().getConfig().isSet("blockSound.sound")) {
+            return Sound.valueOf(plugin.settingsManager().getConfig().getString("blockSound.sound"));
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the configured pitch of the global block sound.
+     * @return the configured pitch of the block sound as a float, or 1.0f if not set.
+     */
+    public static float getGlobalBlockSoundPitch() {
+        if (plugin.settingsManager().getConfig().isSet("blockSound.pitch")) {
+            return (float) plugin.settingsManager().getConfig().getDouble("blockSound.pitch");
+        }
+
+        return 1.0f;
+    }
+
+    /**
+     * Get the configured volume of the global block sound.
+     * @return the configured volume of the block sound as a float, or 1.0f if not set.
+     */
+    public static float getGlobalBlockSoundVolume() {
+        if (plugin.settingsManager().getConfig().isSet("blockSound.volume")) {
+            return  (float) plugin.settingsManager().getConfig().getDouble("blockSound.volume");
+        }
+
+        return 1.0f;
+    }
 
     /**
      *  Get all currently loaded rules.
