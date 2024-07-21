@@ -22,35 +22,40 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
-package net.jadedmc.commandblockerpro.rules;
+package net.jadedmc.commandblockerpro.commands;
+
+import net.jadedmc.commandblockerpro.utils.ChatUtils;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.BukkitCommand;
+import org.jetbrains.annotations.NotNull;
 
 /**
- *  Represents the different types of rules that can be used.
- *  {@link #BLACKLIST}
- *  {@link #HIDE}
- *  {@link #WHITELIST}
+ * Represents a fake command being registered for the "SHOW" Rule Type.
+ * Only function is to display the Rule's block message.
  */
-public enum RuleType {
-    /**
-     * Blacklists all commands listed.
-     * Hides the commands from tab complete and blocks their use.
-     */
-    BLACKLIST,
+public class DummyCommand extends BukkitCommand {
+    private final String blockMessage;
 
     /**
-     * Hides all commands listed from tab complete, without blocking their use.
+     * Creates the dummy command.
+     * @param name Name of the dummy command.
+     * @param blockMessage Block message to be displayed when the dummy command is run.
      */
-    HIDE,
+    public DummyCommand(@NotNull String name, @NotNull final String blockMessage) {
+        super(name);
+        this.blockMessage = blockMessage;
+    }
 
     /**
-     * Creates fake commands that do nothing but display the rule's block message.
-     * Does not override a command if it already exists.
+     * Runs when the command is executed.
+     * @param commandSender Sender of the command.
+     * @param s Command label.
+     * @param strings Arguments of the command.
+     * @return true.
      */
-    SHOW,
-
-    /**
-     * Blocks all commands except those in the list.
-     * Hides non-whitelisted commands from tab complete and blocks their use.
-     */
-    WHITELIST,
+    @Override
+    public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
+        ChatUtils.chat(commandSender, blockMessage);
+        return true;
+    }
 }

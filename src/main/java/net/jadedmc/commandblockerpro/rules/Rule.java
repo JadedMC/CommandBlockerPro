@@ -24,6 +24,7 @@
  */
 package net.jadedmc.commandblockerpro.rules;
 
+import net.jadedmc.commandblockerpro.utils.CommandUtils;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -123,6 +124,11 @@ public class Rule {
             blockSound = Sound.values()[0];
             blockSoundVolume = 0;
             blockSoundPitch = 0;
+        }
+
+        // Register the dummy commands if the Rule Type is SHOW.
+        if(this.type == RuleType.SHOW) {
+            CommandUtils.registerDummyCommands(this);
         }
     }
 

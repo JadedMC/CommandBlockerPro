@@ -29,6 +29,7 @@ import net.jadedmc.commandblockerpro.listeners.PlayerCommandPreprocessListener;
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandSendListener;
 import net.jadedmc.commandblockerpro.rules.RuleManager;
 import net.jadedmc.commandblockerpro.utils.ChatUtils;
+import net.jadedmc.commandblockerpro.utils.CommandUtils;
 import net.jadedmc.commandblockerpro.utils.VersionUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +44,9 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      */
     @Override
     public void onEnable() {
+        // Setup CommandUtils
+        new CommandUtils(this);
+
         // Load plugin settings.
         hookManager = new HookManager();
         settingsManager = new SettingsManager(this);
