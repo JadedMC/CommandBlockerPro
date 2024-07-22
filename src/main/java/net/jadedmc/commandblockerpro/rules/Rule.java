@@ -24,6 +24,7 @@
  */
 package net.jadedmc.commandblockerpro.rules;
 
+import net.jadedmc.commandblockerpro.CommandBlockerPro;
 import net.jadedmc.commandblockerpro.utils.CommandUtils;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
@@ -138,7 +139,11 @@ public class Rule {
      * @return Block Message of the rule.
      */
     public String getBlockMessage() {
-        return blockMessage;
+        if(hasBlockMessage) {
+            return blockMessage;
+        }
+
+        return CommandBlockerPro.getGlobalBlockMessage();
     }
 
     /**
@@ -147,7 +152,11 @@ public class Rule {
      * @return Block Sound of the rule.
      */
     public Sound getBlockSound() {
-        return blockSound;
+        if(hasBlockSound) {
+            return blockSound;
+        }
+
+        return CommandBlockerPro.getGlobalBlockSound();
     }
 
     /**
@@ -156,7 +165,10 @@ public class Rule {
      * @return Block Sound Pitch.
      */
     public float getBlockSoundPitch() {
-        return blockSoundPitch;
+        if(hasBlockSound) {
+            return blockSoundPitch;
+        }
+        return CommandBlockerPro.getGlobalBlockSoundPitch();
     }
 
     /**
@@ -165,7 +177,10 @@ public class Rule {
      * @return Block Sound Volume.
      */
     public float getBlockSoundVolume() {
-        return blockSoundVolume;
+        if(hasBlockSound) {
+            return blockSoundVolume;
+        }
+        return CommandBlockerPro.getGlobalBlockSoundVolume();
     }
 
     /**
@@ -197,7 +212,7 @@ public class Rule {
      * @return Whether the rule has a block message configured.
      */
     public boolean hasBlockMessage() {
-        return hasBlockMessage;
+        return (this.hasBlockMessage || CommandBlockerPro.hasGlobalBlockMessage());
     }
 
     /**
@@ -205,7 +220,7 @@ public class Rule {
      * @return Whether the rule has a block sound configured.
      */
     public boolean hasBlockSound() {
-        return hasBlockSound;
+        return (this.hasBlockSound || CommandBlockerPro.hasGlobalBlockSound());
     }
 
     /**
