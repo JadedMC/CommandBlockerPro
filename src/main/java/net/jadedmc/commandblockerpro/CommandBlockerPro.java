@@ -41,7 +41,7 @@ public class CommandBlockerPro {
      * Get if a global block message has been configured.
      * @return true is yes, false if not.
      */
-    public boolean hasGlobalBlockMessage() {
+    public static boolean hasGlobalBlockMessage() {
         return plugin.settingsManager().getConfig().isSet("blockMessage");
     }
 
@@ -49,7 +49,7 @@ public class CommandBlockerPro {
      * Get if a global block sound has been configured.
      * @return true if yes, false it not.
      */
-    public boolean hasGlobalBlockSound() {
+    public static boolean hasGlobalBlockSound() {
         return plugin.settingsManager().getConfig().isSet("blockMessage.sound");
     }
 
