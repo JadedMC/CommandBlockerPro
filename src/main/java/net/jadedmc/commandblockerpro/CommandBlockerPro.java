@@ -50,7 +50,7 @@ public class CommandBlockerPro {
      * @return true if yes, false it not.
      */
     public static boolean hasGlobalBlockSound() {
-        return plugin.settingsManager().getConfig().isSet("blockMessage.sound");
+        return plugin.settingsManager().getConfig().isSet("blockSound.sound");
     }
 
     /**
