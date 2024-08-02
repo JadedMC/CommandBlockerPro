@@ -44,8 +44,9 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        // Setup CommandUtils
+        // Setup utilities
         new CommandUtils(this);
+        ChatUtils.initialize(this);
 
         // Load plugin settings.
         hookManager = new HookManager();
@@ -65,9 +66,6 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
 
         // Enables bStats statistics tracking.
         new Metrics(this, 20588);
-
-        // Enables ChatUtils.
-        ChatUtils.enable(this);
 
         // Sets up static API methods.
         CommandBlockerPro.setPlugin(this);

@@ -29,9 +29,9 @@ import net.jadedmc.commandblockerpro.CommandBlockerProPlugin;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,7 +48,7 @@ public class ChatUtils {
      * Called when the plugin is enabled.
      * @param pl Instance of the plugin.
      */
-    public static void enable(final CommandBlockerProPlugin pl) {
+    public static void initialize(@NotNull final CommandBlockerProPlugin pl) {
         plugin = pl;
         adventure = BukkitAudiences.create(pl);
     }
@@ -69,7 +69,7 @@ public class ChatUtils {
      * @param sender CommandSender to send message to.
      * @param message The message being sent.
      */
-    public static void chat(CommandSender sender, String message) {
+    public static void chat(@NotNull final CommandSender sender, @NotNull final String message) {
         adventure.sender(sender).sendMessage(translate(message));
     }
 
@@ -79,7 +79,7 @@ public class ChatUtils {
      * @param player Player to send message to.
      * @param message The message being sent.
      */
-    public static void chat(Player player, String message) {
+    public static void chat(@NotNull final Player player, @NotNull String message) {
         // Translates placeholders if needed.
         if(plugin.hookManager().usePlaceholderAPI()) {
             message = PlaceholderAPI.setPlaceholders(player, message);
@@ -94,7 +94,7 @@ public class ChatUtils {
      * @param message Message to translate.
      * @return Translated Message.
      */
-    public static Component translate(String message) {
+    public static Component translate(@NotNull final String message) {
         return MiniMessage.miniMessage().deserialize(replaceLegacy(message));
     }
 
@@ -103,12 +103,10 @@ public class ChatUtils {
      * @param message Message to replace color codes in.
      * @return Message with the color codes replaced.
      */
-    public static String replaceLegacy(String message) {
-        // Get the server version.
-        int subVersion = VersionUtils.getServerVersion();
+    public static String replaceLegacy(@NotNull String message) {
 
         // If the version is 1.16 or greater, check for hex color codes.
-        if(subVersion >= 16) {
+        if(VersionUtils.getServerVersion() >= 16) {
             Pattern pattern = Pattern.compile("&#[a-fA-F0-9]{6}");
             Matcher matcher = pattern.matcher(message);
 
@@ -120,7 +118,9 @@ public class ChatUtils {
         }
 
         // Then replace legacy color codes.
-        return message.replace("§", "&")
+        return message
+                .replace("\\n", "<newline>")
+                .replace("§", "&")
                 .replace("&0", "<reset><black>")
                 .replace("&1", "<reset><dark_blue>")
                 .replace("&2", "<reset><dark_green>")
