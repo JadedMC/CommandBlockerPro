@@ -84,6 +84,7 @@ public class CommandBlockerCMD implements CommandExecutor, TabCompleter {
                 return true;
 
             // Displays the plugin version.
+            case "v":
             case "version":
                 ChatUtils.chat(sender, "<green><bold>CommandBlockerPro</bold> <dark_gray>» <green>Current version: <white>" + plugin.getDescription().getVersion());
                 return true;
