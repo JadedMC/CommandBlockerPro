@@ -37,7 +37,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CommandBlockerProPlugin extends JavaPlugin {
     private HookManager hookManager;
-    private SettingsManager settingsManager;
+    private ConfigManager configManager;
     private RuleManager ruleManager;
 
     /**
@@ -51,7 +51,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
 
         // Load plugin settings.
         hookManager = new HookManager(this);
-        settingsManager = new SettingsManager(this);
+        configManager = new ConfigManager(this);
         ruleManager = new RuleManager(this);
 
         // Register listeners
@@ -77,6 +77,14 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
     }
 
     /**
+     * Get the plugin's config manager, which manages config files.
+     * @return Config Manager.
+     */
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    /**
      * Get the Hook Manager, which returns an object that keeps track of hooks into other plugins.
      * @return HookManager.
      */
@@ -90,14 +98,6 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      */
     public RuleManager getRuleManager() {
         return ruleManager;
-    }
-
-    /**
-     * Get the plugin's settings manager, which manages config files.
-     * @return Settings Manager.
-     */
-    public SettingsManager getSettingsManager() {
-        return settingsManager;
     }
 
     /**
@@ -117,7 +117,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      * Reloads the plugin configuration and updates important values.
      */
     public void reload() {
-        this.settingsManager.reloadConfig();
+        this.configManager.reloadConfig();
         this.ruleManager.reloadRules();
     }
 }

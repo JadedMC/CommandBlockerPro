@@ -55,7 +55,7 @@ public class RuleManager {
     public void reloadRules() {
         rules.clear();
 
-        final ConfigurationSection rulesSection = plugin.getSettingsManager().getConfig().getConfigurationSection("rules");
+        final ConfigurationSection rulesSection = plugin.getConfigManager().getConfig().getConfigurationSection("rules");
         if(rulesSection == null) {
             return;
         }
