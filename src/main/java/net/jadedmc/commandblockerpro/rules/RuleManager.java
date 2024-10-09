@@ -26,6 +26,7 @@ package net.jadedmc.commandblockerpro.rules;
 
 import net.jadedmc.commandblockerpro.CommandBlockerProPlugin;
 import org.bukkit.configuration.ConfigurationSection;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -42,7 +43,7 @@ public class RuleManager {
      * Creates the RuleManager.
      * @param plugin Instance of the plugin.
      */
-    public RuleManager(final CommandBlockerProPlugin plugin) {
+    public RuleManager(@NotNull final CommandBlockerProPlugin plugin) {
         this.plugin = plugin;
 
         reloadRules();
@@ -54,13 +55,13 @@ public class RuleManager {
     public void reloadRules() {
         rules.clear();
 
-        ConfigurationSection rulesSection = plugin.settingsManager().getConfig().getConfigurationSection("rules");
+        final ConfigurationSection rulesSection = plugin.getSettingsManager().getConfig().getConfigurationSection("rules");
         if(rulesSection == null) {
             return;
         }
 
-        for(String rule : rulesSection.getKeys(false)) {
-            ConfigurationSection ruleSection = rulesSection.getConfigurationSection(rule);
+        for(final String rule : rulesSection.getKeys(false)) {
+            final ConfigurationSection ruleSection = rulesSection.getConfigurationSection(rule);
             if(ruleSection == null) {
                 continue;
             }

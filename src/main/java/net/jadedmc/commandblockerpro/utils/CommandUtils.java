@@ -75,8 +75,8 @@ public class CommandUtils {
             blockMessage = rule.getBlockMessage();
         }
         else {
-            if(plugin.settingsManager().getConfig().isSet("blockMessage")) {
-                blockMessage = plugin.settingsManager().getConfig().getString("blockMessage");
+            if(plugin.getSettingsManager().getConfig().isSet("blockMessage")) {
+                blockMessage = plugin.getSettingsManager().getConfig().getString("blockMessage");
             }
             else {
                 blockMessage = "";

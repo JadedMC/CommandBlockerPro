@@ -42,7 +42,7 @@ public class CommandBlockerPro {
      * @return true is yes, false if not.
      */
     public static boolean hasGlobalBlockMessage() {
-        return plugin.settingsManager().getConfig().isSet("blockMessage");
+        return plugin.getSettingsManager().getConfig().isSet("blockMessage");
     }
 
     /**
@@ -50,7 +50,7 @@ public class CommandBlockerPro {
      * @return true if yes, false it not.
      */
     public static boolean hasGlobalBlockSound() {
-        return plugin.settingsManager().getConfig().isSet("blockSound.sound");
+        return plugin.getSettingsManager().getConfig().isSet("blockSound.sound");
     }
 
     /**
@@ -59,8 +59,8 @@ public class CommandBlockerPro {
      */
     @Nullable
     public static String getGlobalBlockMessage() {
-        if(plugin.settingsManager().getConfig().isSet("blockMessage")) {
-            return plugin.settingsManager().getConfig().getString("blockMessage");
+        if(plugin.getSettingsManager().getConfig().isSet("blockMessage")) {
+            return plugin.getSettingsManager().getConfig().getString("blockMessage");
         }
 
         return null;
@@ -72,8 +72,8 @@ public class CommandBlockerPro {
      */
     @Nullable
     public static Sound getGlobalBlockSound() {
-        if(plugin.settingsManager().getConfig().isSet("blockSound.sound")) {
-            return Sound.valueOf(plugin.settingsManager().getConfig().getString("blockSound.sound"));
+        if(plugin.getSettingsManager().getConfig().isSet("blockSound.sound")) {
+            return Sound.valueOf(plugin.getSettingsManager().getConfig().getString("blockSound.sound"));
         }
 
         return null;
@@ -84,8 +84,8 @@ public class CommandBlockerPro {
      * @return the configured pitch of the block sound as a float, or 1.0f if not set.
      */
     public static float getGlobalBlockSoundPitch() {
-        if (plugin.settingsManager().getConfig().isSet("blockSound.pitch")) {
-            return (float) plugin.settingsManager().getConfig().getDouble("blockSound.pitch");
+        if (plugin.getSettingsManager().getConfig().isSet("blockSound.pitch")) {
+            return (float) plugin.getSettingsManager().getConfig().getDouble("blockSound.pitch");
         }
 
         return 1.0f;
@@ -96,8 +96,8 @@ public class CommandBlockerPro {
      * @return the configured volume of the block sound as a float, or 1.0f if not set.
      */
     public static float getGlobalBlockSoundVolume() {
-        if (plugin.settingsManager().getConfig().isSet("blockSound.volume")) {
-            return  (float) plugin.settingsManager().getConfig().getDouble("blockSound.volume");
+        if (plugin.getSettingsManager().getConfig().isSet("blockSound.volume")) {
+            return  (float) plugin.getSettingsManager().getConfig().getDouble("blockSound.volume");
         }
 
         return 1.0f;
@@ -108,7 +108,7 @@ public class CommandBlockerPro {
      * @return Collection of all loaded rules.
      */
     public static Collection<Rule> getRules() {
-        return plugin.ruleManager().getRules();
+        return plugin.getRuleManager().getRules();
     }
 
     /**

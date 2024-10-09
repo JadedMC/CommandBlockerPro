@@ -81,7 +81,7 @@ public class ChatUtils {
      */
     public static void chat(@NotNull final Player player, @NotNull String message) {
         // Translates placeholders if needed.
-        if(plugin.hookManager().usePlaceholderAPI()) {
+        if(plugin.getHookManager().usePlaceholderAPI()) {
             message = PlaceholderAPI.setPlaceholders(player, message);
         }
 

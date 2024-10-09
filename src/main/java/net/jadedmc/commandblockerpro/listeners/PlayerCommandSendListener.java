@@ -30,6 +30,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class PlayerCommandSendListener implements Listener {
      * Creates the listener.
      * @param plugin Instance of the plugin.
      */
-    public PlayerCommandSendListener(final CommandBlockerProPlugin plugin) {
+    public PlayerCommandSendListener(@NotNull final CommandBlockerProPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -54,12 +55,12 @@ public class PlayerCommandSendListener implements Listener {
      * @param event PlayerCommandSendEvent.
      */
     @EventHandler
-    public void onCommandSend(PlayerCommandSendEvent event) {
+    public void onCommandSend(@NotNull final PlayerCommandSendEvent event) {
         final Player player = event.getPlayer();
         final List<String> tablist = new ArrayList<>(event.getCommands());
 
         // Loops through all the rules.
-        for(final Rule rule : plugin.ruleManager().getRules()) {
+        for(final Rule rule : plugin.getRuleManager().getRules()) {
 
             // Removes commands that are hidden by that rule.
             for(final String command : tablist) {

@@ -80,7 +80,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      * Get the Hook Manager, which returns an object that keeps track of hooks into other plugins.
      * @return HookManager.
      */
-    public HookManager hookManager() {
+    public HookManager getHookManager() {
         return hookManager;
     }
 
@@ -88,7 +88,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      * Get the rule manager of the plugin.
      * @return Rule Manager.
      */
-    public RuleManager ruleManager() {
+    public RuleManager getRuleManager() {
         return ruleManager;
     }
 
@@ -96,7 +96,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      * Get the plugin's settings manager, which manages config files.
      * @return Settings Manager.
      */
-    public SettingsManager settingsManager() {
+    public SettingsManager getSettingsManager() {
         return settingsManager;
     }
 
@@ -113,6 +113,9 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         if(this.hookManager.useBetterReload()) getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
     }
 
+    /**
+     * Reloads the plugin configuration and updates important values.
+     */
     public void reload() {
         this.settingsManager.reloadConfig();
         this.ruleManager.reloadRules();
