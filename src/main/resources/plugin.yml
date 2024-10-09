@@ -8,6 +8,7 @@ website: http://www.jadedmc.net
 folia-supported: true
 
 softdepend:
+  - BetterReload
   - PlaceholderAPI
 
 commands:

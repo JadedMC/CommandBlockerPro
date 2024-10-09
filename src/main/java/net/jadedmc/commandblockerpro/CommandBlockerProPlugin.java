@@ -27,6 +27,7 @@ package net.jadedmc.commandblockerpro;
 import net.jadedmc.commandblockerpro.commands.CommandBlockerCMD;
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandPreprocessListener;
 import net.jadedmc.commandblockerpro.listeners.PlayerCommandSendListener;
+import net.jadedmc.commandblockerpro.listeners.ReloadListener;
 import net.jadedmc.commandblockerpro.rules.RuleManager;
 import net.jadedmc.commandblockerpro.utils.ChatUtils;
 import net.jadedmc.commandblockerpro.utils.CommandUtils;
@@ -49,7 +50,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         ChatUtils.initialize(this);
 
         // Load plugin settings.
-        hookManager = new HookManager();
+        hookManager = new HookManager(this);
         settingsManager = new SettingsManager(this);
         ruleManager = new RuleManager(this);
 
@@ -60,6 +61,9 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         if(VersionUtils.getServerVersion() >= 13) {
             getServer().getPluginManager().registerEvents(new PlayerCommandSendListener(this), this);
         }
+
+        // Supports BetterReload if installed.
+        if(this.hookManager.useBetterReload()) getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
 
         // Register command
         getCommand("commandblocker").setExecutor(new CommandBlockerCMD(this));

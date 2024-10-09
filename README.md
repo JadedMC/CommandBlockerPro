@@ -21,6 +21,7 @@ CommandBlockerPro is a feature-rich command blocking plugin for Spigot and Paper
 * An API to interact with the plugin through.
 * MiniMessage support
 * PlaceholderAPI support
+* BetterReload support
 
 ## Requirements
 * Java 8 or newer
