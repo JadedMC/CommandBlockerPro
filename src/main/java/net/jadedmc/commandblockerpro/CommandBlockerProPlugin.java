@@ -55,15 +55,7 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         ruleManager = new RuleManager(this);
 
         // Register listeners
-        getServer().getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
-
-        // This event only exists on 1.13+.
-        if(VersionUtils.getServerVersion() >= 13) {
-            getServer().getPluginManager().registerEvents(new PlayerCommandSendListener(this), this);
-        }
-
-        // Supports BetterReload if installed.
-        if(this.hookManager.useBetterReload()) getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
+        registerListeners();
 
         // Register command
         getCommand("commandblocker").setExecutor(new CommandBlockerCMD(this));
@@ -106,5 +98,18 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
      */
     public SettingsManager settingsManager() {
         return settingsManager;
+    }
+
+    /**
+     * Registers all plugin event listeners with the server.
+     */
+    private void registerListeners() {
+        getServer().getPluginManager().registerEvents(new PlayerCommandPreprocessListener(this), this);
+
+        // This event only exists on 1.13+.
+        if(VersionUtils.getServerVersion() >= 13) getServer().getPluginManager().registerEvents(new PlayerCommandSendListener(this), this);
+
+        // Supports BetterReload if installed.
+        if(this.hookManager.useBetterReload()) getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
     }
 }
