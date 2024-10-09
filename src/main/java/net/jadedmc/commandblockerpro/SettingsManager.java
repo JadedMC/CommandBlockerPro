@@ -27,6 +27,7 @@ package net.jadedmc.commandblockerpro;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class SettingsManager {
      * Loads or Creates configuration files.
      * @param plugin Instance of the plugin.
      */
-    public SettingsManager(Plugin plugin) {
+    public SettingsManager(@NotNull final Plugin plugin) {
         configFile = new File(plugin.getDataFolder(), "config.yml");
         if(!configFile.exists()) {
             plugin.saveResource("config.yml", false);
@@ -61,14 +62,14 @@ public class SettingsManager {
     /**
      * Update the configuration files.
      */
-    public void reload() {
+    public void reloadConfig() {
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 
     /**
      * Saves the config file if it has been modified.
      */
-    public void save() {
+    public void saveConfig() {
         try {
             config.save(configFile);
         }

@@ -51,7 +51,6 @@ public class ReloadListener implements Listener {
      */
     @EventHandler
     public void onReload(@NotNull final ReloadEvent event) {
-        plugin.settingsManager().reload();
-        plugin.ruleManager().reloadRules();
+        plugin.reload();
     }
 }

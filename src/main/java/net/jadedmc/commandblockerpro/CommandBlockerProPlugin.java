@@ -112,4 +112,9 @@ public final class CommandBlockerProPlugin extends JavaPlugin {
         // Supports BetterReload if installed.
         if(this.hookManager.useBetterReload()) getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
     }
+
+    public void reload() {
+        this.settingsManager.reloadConfig();
+        this.ruleManager.reloadRules();
+    }
 }

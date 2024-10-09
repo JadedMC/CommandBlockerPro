@@ -30,7 +30,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -51,7 +50,7 @@ public class CommandBlockerCMD implements CommandExecutor, TabCompleter {
      * To be able to access the configuration files, we need to pass an instance of the plugin to our listener.
      * @param plugin Instance of the plugin.
      */
-    public CommandBlockerCMD(final CommandBlockerProPlugin plugin) {
+    public CommandBlockerCMD(@NotNull final CommandBlockerProPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -64,7 +63,7 @@ public class CommandBlockerCMD implements CommandExecutor, TabCompleter {
      * @return If the command was successful.
      */
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, String[] args) {
+    public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String label, @NotNull String[] args) {
 
         // Makes sure the command has an argument.
         if(args.length == 0) {
@@ -72,14 +71,12 @@ public class CommandBlockerCMD implements CommandExecutor, TabCompleter {
         }
 
         // Get the sub command used.
-        String subCommand = args[0].toLowerCase();
+        final String subCommand = args[0].toLowerCase();
 
         switch (subCommand) {
-
             // Reloads all plugin configuration files.
             case "reload":
-                plugin.settingsManager().reload();
-                plugin.ruleManager().reloadRules();
+                plugin.reload();
                 ChatUtils.chat(sender, "<green><bold>CommandBlockerPro</bold> <dark_gray>» <green>Configuration files reloaded successfully! You may need to relog for some changes to take effect.");
                 return true;
 
@@ -112,7 +109,7 @@ public class CommandBlockerCMD implements CommandExecutor, TabCompleter {
      * @return Tab completion.
      */
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+    public List<String> onTabComplete(@NotNull final CommandSender sender, @NotNull final Command cmd, @NotNull final String label, final String[] args) {
 
         // Return an empty list if the player does not have permission.
         if(!sender.hasPermission("commandblocker.admin")) {
