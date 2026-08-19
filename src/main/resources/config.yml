@@ -12,6 +12,7 @@
 # The message sent to a player when a command is blocked.
 # Can be overridden by adding this setting to each rule.
 # Supports legacy color codes, but you should be using MiniMessage instead (https://docs.advntr.dev/minimessage/format.html).
+# Supports the {command} placeholder, which is replaced with the command that was blocked, without the leading '/' (ex: help).
 blockMessage: "<red><bold>Error</bold> <dark_gray>» <red>You do not have access to that command."
 
 # Defines different rules that can be enforced when determining when to block or hide commands.

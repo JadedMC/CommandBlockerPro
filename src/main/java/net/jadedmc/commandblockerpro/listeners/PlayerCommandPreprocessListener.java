@@ -75,7 +75,9 @@ public class PlayerCommandPreprocessListener implements Listener {
 
                 // Display the block message is the rule has one.
                 if(rule.hasBlockMessage()) {
-                    ChatUtils.chat(player, rule.getBlockMessage());
+                    // Replaces the {command} placeholder with the command that was blocked (without the leading '/').
+                    final String blockMessage = rule.getBlockMessage().replace("{command}", command.replaceFirst("^/", ""));
+                    ChatUtils.chat(player, blockMessage);
                 }
 
                 // Play the block sound if the rule has one.
